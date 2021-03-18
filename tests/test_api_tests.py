@@ -1,5 +1,5 @@
 import os
-from source.services import UserService, ApiTestService
+from source.services import UserService
 
 
 class TestApiTest:
@@ -12,8 +12,8 @@ class TestApiTest:
         user_last_name = os.environ['LAST_NAME']
         user_subscription_date = os.environ['SUBSCRIBE_DATE']
         response = UserService().user_login(user)
-        json_data = response.parse_response()
         assert response.status_code(200)
+        json_data = response.parse_response()
         assert json_data['first_name'] == user_first_name
         assert json_data['last_name'] == user_last_name
         assert json_data['subscriptions']['subscribe_date'] == user_subscription_date
@@ -23,8 +23,10 @@ class TestApiTest:
         end_point = os.environ['GET_USER_INFO_END_POINT']
         user_email = os.environ['USER_EMAIL']
         field_area = os.environ['FIELD_AREA']
-        response = ApiTestService().get(end_point, TestApiTest().user_token)
-        json_data = response.parse_response()
+        response = UserService().user_info(end_point, TestApiTest().user_token)
         assert response.status_code(200)
+        json_data = response.parse_response()
         assert json_data['email'] == user_email
         assert json_data['area_count'] == field_area
+
+
