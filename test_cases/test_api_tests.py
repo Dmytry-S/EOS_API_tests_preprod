@@ -136,16 +136,33 @@ class TestApiTest:
         response = UserService().worklog_data(end_point, user_token, parameters)
         assert response.status_code(200)
         json_data = response.parse_response()
-        assert json_data[0]['id'] == id_winter_wheat
+        assert json_data[0]['id'] == int(id_winter_wheat)
         assert json_data[0]['name_en'] == name_en_winter_wheat
-        assert json_data[1]['id'] == id_paprika
+        assert json_data[1]['id'] == int(id_paprika)
         assert json_data[1]['name_uk'] == name_uk_paprika
-        assert json_data[2]['id'] == id_wheat
+        assert json_data[2]['id'] == int(id_wheat)
         assert json_data[2]['name_ru'] == name_ru_wheat
-        assert json_data[3]['id'] == id_buckwheat
+        assert json_data[3]['id'] == int(id_buckwheat)
         assert json_data[3]['name_pt'] == name_pt_buckwheat
-        assert json_data[4]['id'] == id_corn
+        assert json_data[4]['id'] == int(id_corn)
         assert json_data[4]['name_es'] == name_es_corn
+
+    def test_field_activities_2021(self, user_token):
+        end_point = os.environ['FIELD_ACTIVITY_TYPES_END_POINT']
+        activity_fertilization = os.environ['ACTIVITY_TYPE_FERTILIZATION']
+        activity_spraying = os.environ['ACTIVITY_TYPE_SPRAYING']
+        activity_harvesting = os.environ['ACTIVITY_TYPE_HARVESTING']
+        parameters = {'year': '2021'}
+        response = UserService().worklog_data(end_point, user_token, parameters)
+        assert response.status_code(200)
+        json_data = response.parse_response()
+        assert len(json_data) == 3
+        assert json_data[0]['name_en'] == activity_fertilization
+        assert json_data[1]['name_en'] == activity_spraying
+        assert json_data[2]['name_en'] == activity_harvesting
+
+
+
 
 
 
