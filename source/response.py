@@ -1,6 +1,3 @@
-import logging
-
-
 class AssertResponse(object):
 
     def __init__(self, response):
