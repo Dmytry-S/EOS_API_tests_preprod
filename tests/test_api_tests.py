@@ -34,13 +34,13 @@ class TestApiTest:
         assert json_data['subscription']['date_finish'] == subscription_finish
         assert json_data['subscription']['name'] == subscription_name
         assert json_data['subscription']['type'] == subscription_type
-        assert json_data['subscription']['active']
+        assert json_data['subscription']['active'] is True
         assert json_data['restrictions']['pro_fields_area'] == int(pro_fields_area)
         assert json_data['subscription']['enable_worklog'] == enable_worklog
         assert json_data['subscription']['enable_splitview'] == enable_splitview
-        assert json_data['restrictions']['satellite_images_view']
-        assert json_data['restrictions']['weather_data']
-        assert json_data['restrictions']['zoning']
+        assert json_data['restrictions']['satellite_images_view'] is True
+        assert json_data['restrictions']['weather_data'] is True
+        assert json_data['restrictions']['zoning'] is True
 
     def test_data_manager_mb_before_upload(self, user_token):
         end_point = os.environ['DATA_MB_RESTRICTION_END_POINT']
@@ -97,9 +97,9 @@ class TestApiTest:
         assert response.status_code(200)
         json_data = response.parse_response()
         assert json_data[0]['name'] == data_name_elevation
-        assert json_data[0]['is_active']
+        assert json_data[0]['is_active'] is True
         assert json_data[1]['name'] == data_name_value
-        assert json_data[1]['is_active']
+        assert json_data[1]['is_active'] is True
 
     def test_field_activity_types(self, user_token):
         end_point = os.environ['FIELD_ACTIVITY_TYPES_END_POINT']
