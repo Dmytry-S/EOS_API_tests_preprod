@@ -13,10 +13,10 @@ class TestApiTest:
         response = UserService().user_param(end_point, user_token)
         assert response.status_code(200)
         json_data = response.parse_response()
-        assert json_data['email'] == user_email
-        assert json_data['area_count'] == float(field_area)
-        assert json_data['measurement_system'] == measurement_system
-        assert json_data['country_iso'] == country_iso
+        assert json_data['email'] == user_email, "User name is incorrect"
+        assert json_data['area_count'] == float(field_area), "Field area is incorrect"
+        assert json_data['measurement_system'] == measurement_system, "Measurement system is incorrect"
+        assert json_data['country_iso'] == country_iso, "Country iso is incorrect"
 
     def test_user_subscription(self, user_token):
         end_point = os.environ['USER_SUBSCRIPTION_END_POINT']
@@ -30,14 +30,14 @@ class TestApiTest:
         response = UserService().user_param(end_point, user_token)
         assert response.status_code(200)
         json_data = response.parse_response()
-        assert json_data['subscription']['date_start'] == subscription_start
-        assert json_data['subscription']['date_finish'] == subscription_finish
-        assert json_data['subscription']['name'] == subscription_name
-        assert json_data['subscription']['type'] == subscription_type
+        assert json_data['subscription']['date_start'] == subscription_start, "Subscription start date is incorrect"
+        assert json_data['subscription']['date_finish'] == subscription_finish, "Subscription finish date is incorrect"
+        assert json_data['subscription']['name'] == subscription_name, "Subscription name is incorrect"
+        assert json_data['subscription']['type'] == subscription_type, "Subscription type is incorrect"
         assert json_data['subscription']['active'] is True
-        assert json_data['restrictions']['pro_fields_area'] == int(pro_fields_area)
-        assert json_data['subscription']['enable_worklog'] == enable_worklog
-        assert json_data['subscription']['enable_splitview'] == enable_splitview
+        assert json_data['restrictions']['pro_fields_area'] == int(pro_fields_area), "Pro field area is incorrect"
+        assert json_data['subscription']['enable_worklog'] == enable_worklog, "Worklog is disabled"
+        assert json_data['subscription']['enable_splitview'] == enable_splitview, "Splitview is disabled"
         assert json_data['restrictions']['satellite_images_view'] is True
         assert json_data['restrictions']['weather_data'] is True
         assert json_data['restrictions']['zoning'] is True
@@ -49,8 +49,8 @@ class TestApiTest:
         response = UserService().user_param(end_point, user_token)
         assert response.status_code(200)
         json_data = response.parse_response()
-        assert json_data['total_available_mb'] == float(total_available_mb)
-        assert json_data['total_uploaded_mb'] == float(total_uploaded_mb)
+        assert json_data['total_available_mb'] == float(total_available_mb), "Available mb before upload is incorrect"
+        assert json_data['total_uploaded_mb'] == float(total_uploaded_mb), "Uploaded mn before upload is incorrect"
 
     def test_upload_file(self, user_token):
         end_point = os.environ['UPLOAD_FILE_END_POINT']
@@ -61,8 +61,8 @@ class TestApiTest:
         assert response.status_code(201)
         json_data = response.parse_response()
         assert json_data['status'] == upload_status
-        assert json_data['area'] == float(upload_area)
-        assert json_data['size'] == float(upload_size)
+        assert json_data['area'] == float(upload_area), "Uploaded area is incorrect"
+        assert json_data['size'] == float(upload_size), "Uploded size is incorrect"
 
     def test_data_manager_mb_after_upload(self, user_token):
         end_point = os.environ['DATA_MB_RESTRICTION_END_POINT']
@@ -71,8 +71,8 @@ class TestApiTest:
         response = UserService().user_param(end_point, user_token)
         assert response.status_code(200)
         json_data = response.parse_response()
-        assert json_data['total_available_mb'] == float(total_available_mb)
-        assert json_data['total_uploaded_mb'] == float(total_uploaded_mb)
+        assert json_data['total_available_mb'] == float(total_available_mb), "Available mb after upload is incorrect"
+        assert json_data['total_uploaded_mb'] == float(total_uploaded_mb), "Uploaded mn after upload is incorrect"
 
     def test_delete_file(self, user_token):
         end_point = os.environ['DELETE_FILE_END_POINT']
@@ -86,8 +86,8 @@ class TestApiTest:
         response = UserService().user_param(end_point, user_token)
         assert response.status_code(200)
         json_data = response.parse_response()
-        assert json_data['total_available_mb'] == float(total_available_mb)
-        assert json_data['total_uploaded_mb'] == float(total_uploaded_mb)
+        assert json_data['total_available_mb'] == float(total_available_mb), "Available mb after deleting is incorrect"
+        assert json_data['total_uploaded_mb'] == float(total_uploaded_mb), "Uploaded mn after deleting is incorrect"
 
     def test_data_manager_demo_data(self, user_token):
         end_point = os.environ['DEMO_DATA_END_POINT']
@@ -96,9 +96,9 @@ class TestApiTest:
         response = UserService().user_param(end_point, user_token)
         assert response.status_code(200)
         json_data = response.parse_response()
-        assert json_data[0]['name'] == data_name_elevation
+        assert json_data[0]['name'] == data_name_elevation, "Data name Elevation is incorrect "
         assert json_data[0]['is_active'] is True
-        assert json_data[1]['name'] == data_name_value
+        assert json_data[1]['name'] == data_name_value, "Data name Value is incorrect "
         assert json_data[1]['is_active'] is True
 
     def test_field_activity_types(self, user_token):
@@ -112,12 +112,12 @@ class TestApiTest:
         response = UserService().worklog_data(end_point, user_token)
         assert response.status_code(200)
         json_data = response.parse_response()
-        assert json_data[0]['name_en'] == activity_type_fertilization
-        assert json_data[1]['name_en'] == activity_type_tillage
-        assert json_data[2]['name_en'] == activity_type_planting
-        assert json_data[3]['name_en'] == activity_type_spraying
-        assert json_data[4]['name_en'] == activity_type_harvesting
-        assert json_data[5]['name_en'] == activity_type_default
+        assert json_data[0]['name_en'] == activity_type_fertilization, "Name Fertilization is incorrect"
+        assert json_data[1]['name_en'] == activity_type_tillage, "Name Tillage is incorrect"
+        assert json_data[2]['name_en'] == activity_type_planting, "Name Planting is incorrect"
+        assert json_data[3]['name_en'] == activity_type_spraying, "Name Spraying is incorrect"
+        assert json_data[4]['name_en'] == activity_type_harvesting, "Name Harvesting is incorrect"
+        assert json_data[5]['name_en'] == activity_type_default, "Name Default is incorrect"
 
     def test_crop_types_2021(self, user_token):
         end_point = os.environ['USER_CROP_TYPE_END_POINT']
@@ -135,16 +135,16 @@ class TestApiTest:
         response = UserService().worklog_data(end_point, user_token, parameters)
         assert response.status_code(200)
         json_data = response.parse_response()
-        assert json_data[0]['id'] == int(id_winter_wheat)
-        assert json_data[0]['name_en'] == name_en_winter_wheat
-        assert json_data[1]['id'] == int(id_paprika)
-        assert json_data[1]['name_uk'] == name_uk_paprika
-        assert json_data[2]['id'] == int(id_wheat)
-        assert json_data[2]['name_ru'] == name_ru_wheat
-        assert json_data[3]['id'] == int(id_buckwheat)
-        assert json_data[3]['name_pt'] == name_pt_buckwheat
-        assert json_data[4]['id'] == int(id_corn)
-        assert json_data[4]['name_es'] == name_es_corn
+        assert json_data[0]['id'] == int(id_winter_wheat), "ID Winter Wheat is incorrect"
+        assert json_data[0]['name_en'] == name_en_winter_wheat, "Name en Winter Wheat is incorrect"
+        assert json_data[1]['id'] == int(id_paprika), "ID Paprika is incorrect"
+        assert json_data[1]['name_uk'] == name_uk_paprika, "Name uk Paprika is incorrect"
+        assert json_data[2]['id'] == int(id_wheat), "ID Wheat is incorrect"
+        assert json_data[2]['name_ru'] == name_ru_wheat, "Name ru Wheat is incorrect"
+        assert json_data[3]['id'] == int(id_buckwheat), "ID Buckwheat is incorrect"
+        assert json_data[3]['name_pt'] == name_pt_buckwheat, "Name pt Buckwheat is incorrect"
+        assert json_data[4]['id'] == int(id_corn), "ID Corn is incorrect"
+        assert json_data[4]['name_es'] == name_es_corn, "Name es Corn is incorrect"
 
     def test_field_activities_2021(self, user_token):
         end_point = os.environ['FIELD_ACTIVITY_TYPES_END_POINT']
@@ -156,9 +156,9 @@ class TestApiTest:
         assert response.status_code(200)
         json_data = response.parse_response()
         assert len(json_data) == 3
-        assert json_data[0]['name_en'] == activity_fertilization
-        assert json_data[1]['name_en'] == activity_spraying
-        assert json_data[2]['name_en'] == activity_harvesting
+        assert json_data[0]['name_en'] == activity_fertilization, "Activity Fertilization is not present"
+        assert json_data[1]['name_en'] == activity_spraying, "Activity Spraying is not present"
+        assert json_data[2]['name_en'] == activity_harvesting, "Activity Harvesting is not present"
 
 
 
