@@ -1,7 +1,7 @@
 node {
     stage("Checkout repo"){
         git branch: 'master',
-        credentialsId: '55001b06-1ac7-40bc-9d82-a0e08cc170ae',
+        credentialsId: '785fa312-b4b5-4340-8fab-e9f0b2c68386',
         url: 'https://github.com/Dmytry-S/EOS_API_tests_preprod.git'
     }
 }
