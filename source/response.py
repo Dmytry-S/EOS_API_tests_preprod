@@ -12,3 +12,4 @@ class AssertResponse(object):
 
     def parse_response(self):
         return self.response.json()
+
