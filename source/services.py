@@ -2,6 +2,7 @@ import json
 import os
 import requests
 from source.response import AssertResponse
+# import allure
 
 
 class ApiTestService(object):
@@ -37,17 +38,22 @@ class UserService(ApiTestService):
     def __init__(self):
         super().__init__()
 
+    # @allure.step
     def user_login(self, user):
         return AssertResponse(self.post(user))
 
+    # @allure.step
     def user_param(self, end_point, token):
         return AssertResponse(self.get(end_point, token))
 
+    # @allure.step
     def upload_file(self, end_point, token):
         return AssertResponse(self.post_upload(end_point, token))
 
+    # @allure.step
     def delete_file(self, end_point, token):
         return AssertResponse(self.delete(end_point, token))
 
+    # @allure.step
     def worklog_data(self, end_point, token, parameters={}):
         return AssertResponse(self.get_worklog(end_point, token, parameters))
