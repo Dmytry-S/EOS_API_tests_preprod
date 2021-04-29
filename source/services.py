@@ -30,7 +30,7 @@ class ApiTestService(object):
     def get_worklog(self, end_point, user_token, parameters={}):
         return requests.get(f"{self.base_url}{end_point}", params=parameters,
                             headers={'Authorization': 'Token {}'.format(user_token),
-                                     'x-team-id': '74203'})
+                                     'x-team-id': '58941'})
 
 
 class UserService(ApiTestService):
