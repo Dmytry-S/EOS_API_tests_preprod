@@ -12,25 +12,26 @@ class ApiTestService(object):
         self.base_url = os.environ['BASE_URL']
 
     def post(self, body, end_point=''):
-        return requests.post(f"{self.login_url}", data=json.dumps(body), headers={'content-type': 'application/json'})
+        return requests.post(f'{self.login_url}', data=json.dumps(body), headers={'content-type': 'application/json'})
 
     def get(self, end_point, user_token):
-        return requests.get(f"{self.base_url}{end_point}",
+        return requests.get(f'{self.base_url}{end_point}',
                             headers={'Authorization': 'Token {}'.format(user_token)})
 
     def post_upload(self, end_point, user_token):
         files = {'data': ('movchanovka.zip', open('movchanovka.zip', 'rb'), 'multipart/form-data')}
-        return requests.post(f"{self.base_url}{end_point}", files=files,
+        return requests.post(f'{self.base_url}{end_point}', files=files,
                              headers={'Authorization': 'Token {}'.format(user_token)})
 
     def delete(self, end_point, user_token):
-        return requests.delete(f"{self.base_url}{end_point}",
+        return requests.delete(f'{self.base_url}{end_point}',
                                headers={'Authorization': 'Token {}'.format(user_token)})
 
     def get_worklog(self, end_point, user_token, parameters={}):
-        return requests.get(f"{self.base_url}{end_point}", params=parameters,
+        x_team_id = os.environ['X_TEAM_ID']
+        return requests.get(f'{self.base_url}{end_point}', params=parameters,
                             headers={'Authorization': 'Token {}'.format(user_token),
-                                     'x-team-id': '58941'})
+                                     'x-team-id': x_team_id})
 
 
 class UserService(ApiTestService):

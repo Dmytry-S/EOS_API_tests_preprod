@@ -5,6 +5,6 @@ node {
     }
 
     stage("Create venv & run test"){
-        sh 'pip install virtualenv && virtualenv venv && pip install -r requirements.txt && pytest test_api_tests.py'
+        sh 'virtualenv venv && pip install -r requirements.txt && pytest test_api_tests.py'
     }
 }
