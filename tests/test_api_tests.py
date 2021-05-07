@@ -87,7 +87,7 @@ class TestApiTest:
         assert response.status_code(200)
         json_data = response.parse_response()
         assert json_data['total_available_mb'] == float(total_available_mb), "Available mb after deleting is incorrect"
-        assert json_data['total_uploaded_mb'] == float(total_uploaded_mb), "Uploaded mn after deleting is incorrect"
+        assert json_data['total_uploaded_mb'] == float(total_uploaded_mb), "Uploaded mb after deleting is incorrect"
 
     def test_data_manager_demo_data(self, user_token):
         end_point = os.environ['DEMO_DATA_END_POINT']
